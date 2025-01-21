@@ -28,7 +28,7 @@ namespace ExamenMateoSotomayor.ViewModels
         [RelayCommand]
         public async Task BuscarPeliculaAsync()
         {
-            if (string.IsNullOrWhiteSpace(Title))
+            if (string.IsNullOrWhiteSpace(TituloPelicula))
             {
                 ResultadoBusqueda = "Por favor, ingresa un nombre de una película.";
                 return;
@@ -93,7 +93,7 @@ namespace ExamenMateoSotomayor.ViewModels
         [RelayCommand]
         public void LimpiarCampos()
         {
-            Title = string.Empty;
+            TituloPelicula = string.Empty;
             ResultadoBusqueda = string.Empty;
         }
     }

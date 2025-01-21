@@ -1,23 +1,25 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage
-    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:vm="clr-namespace:ExamenMateoSotomayor.ViewModels"
-    x:Class="ExamenMateoSotomayor.Views.BuscarPeliculasPage"
-    Title="Buscar Películas">
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:ExamenMateoSotomayor.ViewModels"
+             x:Class="ExamenMateoSotomayor.Views.BuscarPeliculasPage">
 
     <ContentPage.BindingContext>
-        <vm:BuscarPeliculasViewModel />
+        <viewModels:BuscarPeliculasViewModel />
     </ContentPage.BindingContext>
 
-    <StackLayout Padding="10">
-        <Entry Placeholder="Ingresa el nombre de la película" Text="{Binding SearchText}" />
-        <Button Text="Buscar" Command="{Binding SearchCommand}" />
-        <Button Text="Limpiar" Command="{Binding ClearCommand}" />
-        <Label Text="{Binding Message}" TextColor="Red" />
-        <Label Text="{Binding MovieDetails}" TextColor="White" FontSize="16" LineBreakMode="WordWrap" />
-    </StackLayout>
+    <VerticalStackLayout Padding="20" Spacing="10">
+        <Entry Placeholder="Ingresa el título de la película"
+               Text="{Binding TituloPelicula}" />
+
+        <Button Text="Buscar"
+                Command="{Binding BuscarPeliculaCommand}" />
+
+        <Button Text="Limpiar"
+                Command="{Binding LimpiarCamposCommand}" />
+
+        <Label Text="{Binding ResultadoBusqueda}"
+               TextColor="Red"
+               FontSize="Medium" />
+    </VerticalStackLayout>
 </ContentPage>
-
-
-

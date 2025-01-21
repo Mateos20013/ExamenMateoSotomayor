@@ -1,9 +1,10 @@
-namespace ExamenMateoSotomayor.Views;
-
-public partial class ListaPeliculas : ContentPage
+namespace ExamenMateoSotomayor.Views
 {
-	public ListaPeliculas()
-	{
-		InitializeComponent();
-	}
+    public partial class ListaPeliculasPage : ContentPage
+    {
+        public ListaPeliculasPage()
+        {
+            InitializeComponent();
+        }
+    }
 }

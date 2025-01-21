@@ -72,7 +72,8 @@ namespace ExamenMateoSotomayor.ViewModels
                                             $"Género: {nuevaPelicula.Genre}\n" +
                                             $"Actor Principal: {nuevaPelicula.Actors}\n" +
                                             $"Premios: {nuevaPelicula.Awards}\n" +
-                                            $"Sitio Web: {nuevaPelicula.Website}";
+                                            $"Sitio Web: {nuevaPelicula.Website}\n" +
+                                            $"Nombre: Mateo Sotomayor";
                     }
                     else
                     {
@@ -90,11 +91,5 @@ namespace ExamenMateoSotomayor.ViewModels
             }
         }
 
-        [RelayCommand]
-        public void LimpiarCampos()
-        {
-            TituloPelicula = string.Empty;
-            ResultadoBusqueda = string.Empty;
-        }
     }
 }

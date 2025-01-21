@@ -11,10 +11,13 @@
     </ContentPage.BindingContext>
 
     <StackLayout Padding="10">
-        <Entry x:Name="entrySearch" Placeholder="Ingresa el nombre de la película" Text="{Binding SearchText}" />
-        <Button x:Name="btnSearch" Text="Buscar" Command="{Binding SearchCommand}" />
-        <Button x:Name="btnClear" Text="Limpiar" Command="{Binding ClearCommand}" />
-        <Label x:Name="lblMessage" Text="{Binding Message}" TextColor="Red" />
+        <Entry Placeholder="Ingresa el nombre de la película" Text="{Binding SearchText}" />
+        <Button Text="Buscar" Command="{Binding SearchCommand}" />
+        <Button Text="Limpiar" Command="{Binding ClearCommand}" />
+        <Label Text="{Binding Message}" TextColor="Red" />
+        <Label Text="{Binding MovieDetails}" TextColor="White" FontSize="16" LineBreakMode="WordWrap" />
     </StackLayout>
 </ContentPage>
+
+
 

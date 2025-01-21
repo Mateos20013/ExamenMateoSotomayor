@@ -4,15 +4,16 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:vm="clr-namespace:ExamenMateoSotomayor.ViewModels"
     x:Class="ExamenMateoSotomayor.Views.ListaPeliculasPage"
-    Title="Mateo Sotomayor">
+    Title="Películas Consultadas">
 
     <ContentPage.BindingContext>
         <vm:ListaPeliculasViewModel />
     </ContentPage.BindingContext>
 
     <StackLayout Padding="10">
-        <ListView x:Name="listPeliculas" ItemsSource="{Binding Peliculas}" />
+        <ListView ItemsSource="{Binding Peliculas}" />
     </StackLayout>
 </ContentPage>
+
 
 

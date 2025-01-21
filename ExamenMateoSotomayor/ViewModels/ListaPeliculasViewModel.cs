@@ -22,7 +22,7 @@ namespace ExamenMateoSotomayor.ViewModels
 
             foreach (var pelicula in peliculas)
             {
-                Peliculas.Add($"Título: {pelicula.Title}, Género: {pelicula.Genre}, Actor Principal: {pelicula.Actor}, Awards: {pelicula.Awards}, Website: {pelicula.Website}, MateoSotomayor: {pelicula.MateoSotomayor}");
+                Peliculas.Add($"Título: {pelicula.Title}, Género: {pelicula.Genre}, Actor Principal: {pelicula.Actors}, Awards: {pelicula.Awards}, Website: {pelicula.Website}, MateoSotomayor: {pelicula.MateoSotomayor}");
             }
         }
     }

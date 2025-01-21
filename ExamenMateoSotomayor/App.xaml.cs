@@ -4,7 +4,7 @@ namespace ExamenMateoSotomayor
 {
     public partial class App : Application
     {
-        public static DatabaseRepository Database { get; private set; }
+        public static DatabaseRepository? Database { get; private set; }
 
         public App(string dbPath)
         {

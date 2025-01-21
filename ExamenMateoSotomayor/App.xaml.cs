@@ -1,13 +1,22 @@
-﻿namespace ExamenMateoSotomayor
+﻿using ExamenMateoSotomayor.Repository;
+
+namespace ExamenMateoSotomayor
 {
     public partial class App : Application
     {
-        public App()
+        public static DatabaseRepository Database { get; private set; }
+
+        public App(string dbPath)
         {
             InitializeComponent();
+
+           
+            Database = new DatabaseRepository(dbPath);
+
+            MainPage = new AppShell();
         }
 
-        protected override Window CreateWindow(IActivationState? activationState)
+        protected override Window CreateWindow(IActivationState activationState)
         {
             return new Window(new AppShell());
         }

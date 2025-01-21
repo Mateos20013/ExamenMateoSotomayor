@@ -44,13 +44,13 @@ namespace ExamenMateoSotomayor.ViewModels
             {
                 using HttpClient client = new();
                 var response = await client.GetStringAsync($"https://freetestapi.com/api/v1/movies?search={SearchText}&limit=1");
-                var movies = JsonSerializer.Deserialize<List<Pelicula>>(response);
+                var peliculas = JsonSerializer.Deserialize<List<Pelicula>>(response);
 
-                if (movies != null && movies.Count > 0)
+                if (peliculas != null && peliculas.Count > 0)
                 {
-                    var movie = movies[0];
-                    movie.MateoSotomayor = "Mateo Sotomayor";
-                    await App.Database.SaveMovieAsync(movie);
+                    var pelicula = peliculas[0];
+                    pelicula.MateoSotomayor = "Mateo Sotomayor";
+                    await App.Database.SaveMovieAsync(pelicula);
                     Message = "Película guardada exitosamente.";
                 }
                 else

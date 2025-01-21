@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ExamenMateoSotomayor.Models
+﻿namespace ExamenMateoSotomayor.Models
 {
     public class Pelicula
     {
@@ -16,4 +10,3 @@ namespace ExamenMateoSotomayor.Models
         public string MateoSotomayor { get; set; }
     }
 }
-

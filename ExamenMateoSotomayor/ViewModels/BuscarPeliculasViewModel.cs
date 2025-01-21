@@ -49,8 +49,17 @@ namespace ExamenMateoSotomayor.ViewModels
                 if (peliculas != null && peliculas.Count > 0)
                 {
                     var pelicula = peliculas[0];
-                    pelicula.MateoSotomayor = "Mateo Sotomayor";
-                    await App.Database.SaveMovieAsync(pelicula);
+                    var nuevaPelicula = new Pelicula
+                    {
+                        Title = pelicula.Title,
+                        Genre = pelicula.Genre[0], // Primer género
+                        Actor = pelicula.Actors[0], // Primer actor
+                        Awards = pelicula.Awards,
+                        Website = pelicula.Website,
+                        MateoSotomayor = "Mateo Sotomayor"
+                    };
+
+                    await App.Database.SaveMovieAsync(nuevaPelicula);
                     Message = "Película guardada exitosamente.";
                 }
                 else

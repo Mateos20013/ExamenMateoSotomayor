@@ -7,11 +7,11 @@ namespace ExamenMateoSotomayor.ViewModels
 {
     public class ListaPeliculasViewModel : BaseViewModel
     {
-        public ObservableCollection<Pelicula> Peliculas { get; }
+        public ObservableCollection<string> Peliculas { get; }
 
         public ListaPeliculasViewModel()
         {
-            Peliculas = new ObservableCollection<Pelicula>();
+            Peliculas = new ObservableCollection<string>();
             LoadMoviesAsync();
         }
 
@@ -19,9 +19,10 @@ namespace ExamenMateoSotomayor.ViewModels
         {
             var peliculas = await App.Database.GetMoviesAsync();
             Peliculas.Clear();
+
             foreach (var pelicula in peliculas)
             {
-                Peliculas.Add(pelicula);
+                Peliculas.Add($"Título: {pelicula.Title}, Género: {pelicula.Genre}, Actor Principal: {pelicula.Actor}, Awards: {pelicula.Awards}, Website: {pelicula.Website}, MateoSotomayor: {pelicula.MateoSotomayor}");
             }
         }
     }

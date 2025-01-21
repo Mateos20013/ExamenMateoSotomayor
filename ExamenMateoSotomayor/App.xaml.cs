@@ -10,11 +10,11 @@ namespace ExamenMateoSotomayor
         {
             InitializeComponent();
 
-           
             string dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ExamenMateoSotomayor.db3");
             Database = new DatabaseRepository(dbPath);
 
             MainPage = new AppShell();
         }
     }
+
 }

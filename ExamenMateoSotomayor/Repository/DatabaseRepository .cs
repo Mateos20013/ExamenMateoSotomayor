@@ -1,7 +1,5 @@
 ﻿using SQLite;
 using ExamenMateoSotomayor.Models;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace ExamenMateoSotomayor.Repository
 {

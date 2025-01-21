@@ -1,28 +1,43 @@
 ﻿using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using CommunityToolkit.Mvvm.ComponentModel;
 using ExamenMateoSotomayor.Models;
 using ExamenMateoSotomayor.Repository;
 
 namespace ExamenMateoSotomayor.ViewModels
 {
-    public class ListaPeliculasViewModel : BaseViewModel
+    public partial class ListaPeliculasViewModel : ObservableObject
     {
-        public ObservableCollection<string> Peliculas { get; }
+        private readonly DatabaseRepository _databaseRepository;
+
+        [ObservableProperty]
+        private ObservableCollection<Pelicula> peliculas;
 
         public ListaPeliculasViewModel()
         {
-            Peliculas = new ObservableCollection<string>();
-            LoadMoviesAsync();
+            _databaseRepository = App.Database;
+            Peliculas = new ObservableCollection<Pelicula>();
+            _ = CargarPeliculasAsync();
         }
 
-        private async Task LoadMoviesAsync()
+        private async Task CargarPeliculasAsync()
         {
-            var peliculas = await App.Database.GetMoviesAsync();
+            var listaPeliculas = await _databaseRepository.GetMoviesAsync();
             Peliculas.Clear();
 
-            foreach (var pelicula in peliculas)
+            foreach (var pelicula in listaPeliculas)
             {
-                Peliculas.Add($"Título: {pelicula.Title}, Género: {pelicula.Genre}, Actor Principal: {pelicula.Actors}, Awards: {pelicula.Awards}, Website: {pelicula.Website}, MateoSotomayor: {pelicula.MateoSotomayor}");
+                Peliculas.Add(new Pelicula
+                {
+                    Title = pelicula.Title,
+                    Genre = pelicula.Genre,
+                    Actors = pelicula.Actors,
+                    Awards = pelicula.Awards,
+                    Website = pelicula.Website,
+                    Descripcion = $"Título: {pelicula.Title}, Género: {pelicula.Genre}, " +
+                                  $"Actor Principal: {pelicula.Actors}, Premios: {pelicula.Awards}, " +
+                                  $"Sitio Web: {pelicula.Website}"
+                });
             }
         }
     }

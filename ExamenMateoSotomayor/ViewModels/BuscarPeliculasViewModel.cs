@@ -1,102 +1,100 @@
 ﻿using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
-using System.Windows.Input;
+using System.Linq;
+using System.Collections.Generic;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using ExamenMateoSotomayor.Models;
 using ExamenMateoSotomayor.Repository;
 
 namespace ExamenMateoSotomayor.ViewModels
 {
-    public class BuscarPeliculasViewModel : BaseViewModel
+    public partial class BuscarPeliculasViewModel : ObservableObject
     {
-        private string _searchText;
-        private string _message;
-        private string _movieDetails;
+        private readonly DatabaseRepository _databaseRepository;
 
-        public string SearchText
-        {
-            get => _searchText;
-            set => SetProperty(ref _searchText, value);
-        }
+        [ObservableProperty]
+        private string tituloPelicula;
 
-        public string Message
-        {
-            get => _message;
-            set => SetProperty(ref _message, value);
-        }
-
-        public string MovieDetails
-        {
-            get => _movieDetails;
-            set => SetProperty(ref _movieDetails, value);
-        }
-
-        public ICommand SearchCommand { get; }
-        public ICommand ClearCommand { get; }
+        [ObservableProperty]
+        private string resultadoBusqueda;
 
         public BuscarPeliculasViewModel()
         {
-            SearchCommand = new Command(async () => await SearchMovieAsync());
-            ClearCommand = new Command(() =>
-            {
-                SearchText = string.Empty;
-                Message = string.Empty;
-                MovieDetails = string.Empty;
-            });
+            _databaseRepository = App.Database;
         }
 
-        private async Task SearchMovieAsync()
+        [RelayCommand]
+        public async Task BuscarPeliculaAsync()
         {
-            if (string.IsNullOrWhiteSpace(SearchText))
+            if (string.IsNullOrWhiteSpace(Title))
             {
-                Message = "Por favor ingresa un nombre de película.";
-                MovieDetails = string.Empty;
+                ResultadoBusqueda = "Por favor, ingresa un nombre de una película.";
                 return;
             }
 
             try
             {
-                using HttpClient client = new();
-                var response = await client.GetStringAsync($"https://freetestapi.com/api/v1/movies?search={SearchText}&limit=1");
-                var peliculas = JsonSerializer.Deserialize<List<Pelicula>>(response);
+                var httpClient = new HttpClient();
+                var url = $"https://www.freetestapi.com/api/v1/movies?search={TituloPelicula}";
 
-                if (peliculas != null && peliculas.Count > 0)
+                var response = await httpClient.GetAsync(url);
+
+                if (response.IsSuccessStatusCode)
                 {
-                    var pelicula = peliculas[0];
-                    var nuevaPelicula = new Pelicula
+                    var jsonResponse = await response.Content.ReadAsStringAsync();
+                    var peliculas = JsonSerializer.Deserialize<List<JsonElement>>(jsonResponse);
+
+                    if (peliculas != null && peliculas.Count > 0)
                     {
-                        Title = pelicula.Title,
-                        Genre = pelicula.Genre != null && pelicula.Genre.Count() > 0
-                            ? string.Join(", ", pelicula.Genre)
-                            : "Sin género",
-                        Actors = pelicula.Actors != null && pelicula.Actors.Count() > 0
-                            ? string.Join(", ", pelicula.Actors)
-                            : "Sin actor principal",
-                        Awards = pelicula.Awards ?? "Sin premios",
-                        Website = pelicula.Website ?? "Sin sitio web",
-                        MateoSotomayor = "Mateo Sotomayor"
-                    };
+                        var pelicula = peliculas[0];
 
-                    await App.Database.SaveMovieAsync(nuevaPelicula);
-                    Message = "Película guardada exitosamente.";
+                        var titulo = pelicula.GetProperty("title").GetString();
+                        var genero = string.Join(", ", pelicula.GetProperty("genre").EnumerateArray().Select(g => g.GetString()));
+                        var actorPrincipal = string.Join(", ", pelicula.GetProperty("actors").EnumerateArray().Select(a => a.GetString()));
+                        var awards = pelicula.GetProperty("awards").GetString();
+                        var website = pelicula.GetProperty("website").GetString();
 
-                    MovieDetails = $"Título: {nuevaPelicula.Title}\n" +
-                                   $"Género: {nuevaPelicula.Genre}\n" +
-                                   $"Actor Principal: {nuevaPelicula.Actors}\n" +
-                                   $"Premios: {nuevaPelicula.Awards}\n" +
-                                   $"Sitio Web: {nuevaPelicula.Website}";
+                        var nuevaPelicula = new Pelicula
+                        {
+                            Title = titulo ?? "No disponible",
+                            Genre = genero ?? "No disponible",
+                            Actors = actorPrincipal ?? "No disponible",
+                            Awards = awards ?? "No disponible",
+                            Website = website ?? "No disponible"
+                        };
+
+                        // Insertar la película en la base de datos
+                        await _databaseRepository.SaveMovieAsync(nuevaPelicula);
+
+                        ResultadoBusqueda = $"Película: {nuevaPelicula.Title}\n" +
+                                            $"Género: {nuevaPelicula.Genre}\n" +
+                                            $"Actor Principal: {nuevaPelicula.Actors}\n" +
+                                            $"Premios: {nuevaPelicula.Awards}\n" +
+                                            $"Sitio Web: {nuevaPelicula.Website}";
+                    }
+                    else
+                    {
+                        ResultadoBusqueda = "No se encontró ninguna película con ese nombre.";
+                    }
                 }
                 else
                 {
-                    Message = "No se encontró ninguna película.";
-                    MovieDetails = string.Empty;
+                    ResultadoBusqueda = $"Error: {response.StatusCode}. No se pudo buscar la película.";
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                Message = "Hubo un error al buscar la película.";
-                MovieDetails = string.Empty;
+                ResultadoBusqueda = $"Error: {ex.Message}. Verifica tu conexión a internet.";
             }
+        }
+
+        [RelayCommand]
+        public void LimpiarCampos()
+        {
+            Title = string.Empty;
+            ResultadoBusqueda = string.Empty;
         }
     }
 }

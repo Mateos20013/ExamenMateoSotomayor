@@ -1,8 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using ExamenMateoSotomayor.Models;
+using ExamenMateoSotomayor.Repository;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using ExamenMateoSotomayor.Repository;
 
 namespace ExamenMateoSotomayor.ViewModels
 {
@@ -36,6 +37,12 @@ namespace ExamenMateoSotomayor.ViewModels
                     Website = pelicula.Website
                 });
             }
+        }
+
+        [RelayCommand]
+        public async Task CambiarPestaña()
+        {
+            await Shell.Current.GoToAsync("//Buscador");
         }
     }
 }

@@ -21,5 +21,8 @@
         <Label Text="{Binding ResultadoBusqueda}"
                TextColor="Red"
                FontSize="Medium" />
+        <Button Text="Ir a Listado"
+                Command="{Binding CambiarPestañaCommand}"
+                Margin="0,20,0,0" />
     </VerticalStackLayout>
 </ContentPage>

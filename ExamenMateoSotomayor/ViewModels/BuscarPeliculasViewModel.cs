@@ -26,6 +26,13 @@ namespace ExamenMateoSotomayor.ViewModels
         }
 
         [RelayCommand]
+        public void LimpiarCampos()
+        {
+            TituloPelicula = string.Empty;
+            ResultadoBusqueda = string.Empty;
+        }
+
+        [RelayCommand]
         public async Task BuscarPeliculaAsync()
         {
             if (string.IsNullOrWhiteSpace(TituloPelicula))
@@ -91,5 +98,10 @@ namespace ExamenMateoSotomayor.ViewModels
             }
         }
 
+        [RelayCommand]
+        public async Task CambiarPestaña()
+        {
+            await Shell.Current.GoToAsync("//Listado");
+        }
     }
 }

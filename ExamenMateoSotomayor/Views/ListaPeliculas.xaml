@@ -20,5 +20,8 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        <Button Text="Ir a Buscador"
+                Command="{Binding CambiarPestañaCommand}"
+                Margin="0,20,0,0" />
     </StackLayout>
 </ContentPage>

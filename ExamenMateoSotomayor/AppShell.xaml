@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<Shell
-    x:Class="ExamenMateoSotomayor.AppShell"
-    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:ExamenMateoSotomayor.Views"
-    Title="ExamenMateoSotomayor">
-
+<Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:local="clr-namespace:ExamenMateoSotomayor.Views"
+       x:Class="ExamenMateoSotomayor.AppShell">
     <TabBar>
-        <ShellContent Title="Buscador" 
+        <ShellContent Title="Buscador"
+                      Route="Buscador"
                       ContentTemplate="{DataTemplate local:BuscarPeliculasPage}" />
-
-        <ShellContent Title="Listado" 
+        <ShellContent Title="Listado"
+                      Route="Listado"
                       ContentTemplate="{DataTemplate local:ListaPeliculasPage}" />
     </TabBar>
 </Shell>
+

@@ -1,3 +1,5 @@
+using ExamenMateoSotomayor.ViewModels;
+
 namespace ExamenMateoSotomayor.Views
 {
     public partial class ListaPeliculasPage : ContentPage
@@ -5,6 +7,7 @@ namespace ExamenMateoSotomayor.Views
         public ListaPeliculasPage()
         {
             InitializeComponent();
+            BindingContext = new ListaPeliculasViewModel();
         }
     }
 }

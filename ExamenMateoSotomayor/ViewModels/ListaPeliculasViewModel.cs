@@ -1,7 +1,7 @@
-﻿using System.Collections.ObjectModel;
-using System.Threading.Tasks;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using ExamenMateoSotomayor.Models;
+using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using ExamenMateoSotomayor.Repository;
 
 namespace ExamenMateoSotomayor.ViewModels
@@ -33,10 +33,7 @@ namespace ExamenMateoSotomayor.ViewModels
                     Genre = pelicula.Genre,
                     Actors = pelicula.Actors,
                     Awards = pelicula.Awards,
-                    Website = pelicula.Website,
-                    Descripcion = $"Título: {pelicula.Title}, Género: {pelicula.Genre}, " +
-                                  $"Actor Principal: {pelicula.Actors}, Premios: {pelicula.Awards}, " +
-                                  $"Sitio Web: {pelicula.Website}"
+                    Website = pelicula.Website
                 });
             }
         }
